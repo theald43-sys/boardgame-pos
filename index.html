@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <!-- ກຳນົດການເຂົ້າລະຫັດຕົວອັກສອນເປັນ UTF-8 ເພື່ອໃຫ້ສະແດງພາສາລາວໄດ້ຢ່າງຖືກຕ້ອງ -->
+    <meta charset="UTF-8">
+    <!-- ຕັ້ງຄ່າໃຫ້ເວັບໄຊຮອງຮັບການສະແດງຜົນໃນທຸກຂະໜາດໜ້າຈໍ (Responsive Design) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Game POS</title>
+    <!-- ນຳເຂົ້າຟອນ Noto Sans Lao ຈາກ Google Fonts ເພື່ອຄວາມສວຍງາມຂອງຕົວໜັງສືພາສາລາວ -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <!-- ນຳເຂົ້າ Font Awesome ໄອຄອນຕ່າງໆ ເພື່ອໃຊ້ໃນປຸ່ມ ແລະ ຫົວຂໍ້ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ເຊື່ອມຕໍ່ໄຟລ໌ CSS ພາຍນອກເພື່ອຕົກແຕ່ງເວັບໄຊ -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ສ່ວນຫົວຂອງເວັບໄຊ (Header): ສະແດງໂລໂກ້ຮ້ານ ແລະ ຈຳນວນສິນຄ້າໃນກະຕ່າ -->
+    <header>
+        <!-- ໂລໂກ້ ແລະ ຊື່ຮ້ານບອດເກມ -->
+        <div class="logo">
+            <h1><i class="fa-solid fa-dice"></i> PG BOARD GAME</h1>
+        </div>
+        <!-- ສ່ວນສະແດງຈຳນວນສິນຄ້າທີ່ຢູ່ໃນກະຕ່າ (Cart Status) -->
+        <div class="cart-status">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <!-- ຕົວເລກສະແດງຈຳນວນສິນຄ້າ ຈະຖືກອັບເດດຜ່ານ JavaScript -->
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- ສ່ວນເນື້ອຫາຫຼັກ (Container): ຈັດແບບສອງຖັນ (ສິນຄ້າ ແລະ ຂໍ້ມູນການສັ່ງຊື້) -->
+    <div class="container">
+        <!-- ຖັນຊ້າຍ: ບ່ອນສະແດງລາຍການສິນຄ້າທັງໝົດ ໂດຍຈະຖືກດຶງມາສະແດງດ້ວຍ JavaScript -->
+        <div class="products" id="product-list"></div>
+
+        <!-- ຖັນຂວາ: ຟອມປ້ອນຂໍ້ມູນລູກຄ້າ, ໃສ່ລະຫັດສ່ວນຫຼຸດ, ແລະ ປຸ່ມຢືນຢັນການຊື້ -->
+        <div class="checkout-panel">
+            <h2><i class="fa-solid fa-shopping-cart"></i> ຂໍ້ມູນການສັ່ງຊື້</h2>
+            
+            <!-- ຊ່ອງປ້ອນຂໍ້ມູນຂອງລູກຄ້າ -->
+            <input type="text" id="custName" placeholder="ຊື່ ແລະ ນາມສະກຸນ">
+            <input type="text" id="custTel" placeholder="ເບີໂທລະສັບ">
+            <textarea id="custLoc" placeholder="ທີ່ຢູ່ຈັດສົ່ງ"></textarea>
+            
+            <!-- ສ່ວນປ້ອນລະຫັດສ່ວນຫຼຸດ (Coupon Code) -->
+            <div class="coupon-area">
+                <input type="text" id="coupon-input" placeholder="ລະຫັດສ່ວນຫຼຸດ">
+                <button onclick="applyCoupon()">ໃຊ້ໂຄ້ດ</button>
+            </div>
+            <!-- ຂໍ້ຄວາມແຈ້ງເຕືອນຜົນການໃຊ້ລະຫັດສ່ວນຫຼຸດ -->
+            <p id="coupon-msg"></p>
+
+            <!-- ກ່ອງສະຫຼຸບຍອດເງິນ ແລະ ລາຍການສິນຄ້າໃນກະຕ່າ (Summary Box) -->
+            <div class="summary-box">
+                <!-- ລາຍການສິນຄ້າທີ່ຖືກເລືອກ (ຈະຖືກອັບເດດຜ່ານ JavaScript) -->
+                <div id="cart-display-list">
+                    <p style="text-align:center; color:#999;">ຍັງບໍ່ມີສິນຄ້າ...</p>
+                </div>
+                <hr>
+                <!-- ສະແດງມູນຄ່າສ່ວນຫຼຸດ -->
+                <div class="total-row">
+                    <span>ສ່ວນຫຼຸດ:</span>
+                    <span id="discount-text">0 ກີບ</span>
+                </div>
+                <!-- ສະແດງຍອດລວມທັງໝົດສຸດທິ -->
+                <div class="total-row grand-total">
+                    <span>ລວມທັງໝົດ:</span>
+                    <span id="final-total-text">0 ກີບ</span>
+                </div>
+            </div>
+
+            <!-- ປຸ່ມຢືນຢັນການສັ່ງຊື້ ແລະ ເປີດໜ້າໃບບິນຮັບເງິນ -->
+            <button class="btn-confirm" onclick="confirmPurchase()">
+                <i class="fa-solid fa-check-circle"></i> ຢືນຢັນສັ່ງຊື້ & ອອກບິນ
+            </button>
+            <!-- ປຸ່ມລ້າງຂໍ້ມູນໃນກະຕ່າທັງໝົດ -->
+            <button class="btn-clear" onclick="resetCart()">ລ້າງກະຕ່າ</button>
+        </div>
+    </div>
+
+    <!-- ເຊື່ອມຕໍ່ໄຟລ໌ JavaScript ເພື່ອຈັດການລະບົບຂາຍ (POS Logic) -->
+    <script src="script.js"></script>
+</body>
+</html>

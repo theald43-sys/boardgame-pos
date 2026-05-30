@@ -3,82 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Game POS</title>
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <title>PG Board Game — ຮ້ານບອດເກມ</title>
+    <meta name="description" content="PG Board Game Shop — ຮ້ານຂາຍບອດເກມອອນລາຍ ນະຄອນຫຼວງວຽງຈັນ">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <h1><i class="fa-solid fa-dice"></i> PG BOARD GAME</h1>
+
+    <header id="top-header">
+        <div class="logo" data-view="view-store" onclick="switchView('view-store')">
+            <i class="fa-solid fa-dice"></i>
+            <span>PG BOARD GAME</span>
         </div>
-        <div class="cart-status">
-            <i class="fa-solid fa-basket-shopping"></i>
-            <span id="cart-count">0</span>
-        </div>
+        <nav class="header-nav">
+            <a href="#" class="nav-link nav-active" data-view="view-store" onclick="event.preventDefault(); switchView('view-store')">
+                <i class="fa-solid fa-store"></i>
+                <span>ໜ້າຮ້ານ</span>
+            </a>
+            <a href="#" class="nav-link" data-view="view-cart" onclick="event.preventDefault(); switchView('view-cart')">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>ກະຕ່າ</span>
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>
+            <a href="#" class="nav-link" data-view="view-about" onclick="event.preventDefault(); switchView('view-about')">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>ກ່ຽວກັບ</span>
+            </a>
+        </nav>
     </header>
 
-    <div class="container">
-        <div class="main-content">
+    <main id="app">
+
+        <section id="view-store" class="view active">
             <div class="search-bar">
                 <i class="fa-solid fa-search"></i>
                 <input type="text" id="search-input" placeholder="ຄົ້ນຫາບອດເກມ..." onkeyup="filterProducts()">
             </div>
             <div class="products" id="product-list"></div>
-        </div>
+        </section>
 
-        <div class="checkout-panel">
-            <h2><i class="fa-solid fa-shopping-cart"></i> ຂໍ້ມູນການສັ່ງຊື້</h2>
-            <input type="text" id="custName" placeholder="ຊື່ ແລະ ນາມສະກຸນ">
-            <input type="text" id="custTel" placeholder="ເບີໂທລະສັບ">
-            <textarea id="custLoc" placeholder="ທີ່ຢູ່ຈັດສົ່ງ"></textarea>
-            
-            <div class="coupon-area">
-                <input type="text" id="coupon-input" placeholder="ລະຫັດສ່ວນຫຼຸດ">
-                <button onclick="applyCoupon()">ໃຊ້ໂຄ້ດ</button>
+        <section id="view-cart" class="view">
+            <h2 class="view-title"><i class="fa-solid fa-basket-shopping"></i> ກະຕ່າ & ຊຳລະເງິນ</h2>
+            <div class="cart-layout">
+                <div class="cart-basket">
+                    <div class="panel">
+                        <h3><i class="fa-solid fa-list"></i> ລາຍການສິນຄ້າ</h3>
+                        <div class="summary-box">
+                            <div id="cart-display-list">
+                                <p class="empty-cart">ຍັງບໍ່ມີສິນຄ້າ...</p>
+                            </div>
+                        </div>
+                        <div class="coupon-area">
+                            <input type="text" id="coupon-input" placeholder="ລະຫັດສ່ວນຫຼຸດ">
+                            <button onclick="applyCoupon()">ໃຊ້ໂຄ້ດ</button>
+                        </div>
+                        <p id="coupon-msg"></p>
+                        <hr>
+                        <div class="total-row">
+                            <span>ສ່ວນຫຼຸດ:</span>
+                            <span id="discount-text">0 ກີບ</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>ລວມທັງໝົດ:</span>
+                            <span id="final-total-text">0 ກີບ</span>
+                        </div>
+                        <button class="btn-clear" onclick="resetCart()"><i class="fa-solid fa-broom"></i> ລ້າງກະຕ່າ</button>
+                    </div>
+                </div>
+                <div class="cart-checkout">
+                    <div class="panel">
+                        <h3><i class="fa-solid fa-user"></i> ຂໍ້ມູນລູກຄ້າ</h3>
+                        <div class="form-group">
+                            <label for="custName">ຊື່ ແລະ ນາມສະກຸນ</label>
+                            <input type="text" id="custName" placeholder="ເຊັ່ນ: ສົມສະໜຸກ">
+                        </div>
+                        <div class="form-group">
+                            <label for="custTel">ເບີໂທລະສັບ</label>
+                            <input type="text" id="custTel" placeholder="020 XXXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="custLoc">ທີ່ຢູ່ຈັດສົ່ງ</label>
+                            <textarea id="custLoc" placeholder="ບ້ານ, ເມືອງ, ແຂວງ"></textarea>
+                        </div>
+                        <button class="btn-confirm" onclick="confirmPurchase()">
+                            <i class="fa-solid fa-check-circle"></i> ຢືນຢັນສັ່ງຊື້ & ອອກບິນ
+                        </button>
+                    </div>
+                </div>
             </div>
-            <p id="coupon-msg"></p>
+        </section>
 
-            <div class="summary-box">
-                <div id="cart-display-list">
-                    <p style="text-align:center; color:#999;">ຍັງບໍ່ມີສິນຄ້າ...</p>
+        <section id="view-about" class="view">
+            <div class="about-hero">
+                <i class="fa-solid fa-dice-d20"></i>
+                <h2>PG Board Game Shop</h2>
+                <p>ຮ້ານບອດເກມທີ່ດີທີ່ສຸດໃນນະຄອນຫຼວງວຽງຈັນ</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>ທີ່ຢູ່ຮ້ານ</h3>
+                    <p>ບ້ານດົງໂດກ, ເມືອງໄຊທານີ</p>
+                    <p>ນະຄອນຫຼວງວຽງຈັນ</p>
                 </div>
-                <hr>
-                <div class="total-row">
-                    <span>ສ່ວນຫຼຸດ:</span>
-                    <span id="discount-text">0 ກີບ</span>
+                <div class="about-card">
+                    <div class="about-card-icon"><i class="fa-solid fa-phone"></i></div>
+                    <h3>ໂທລະສັບ</h3>
+                    <p>020 9988 7766</p>
+                    <p>ເປີດ 09:00 – 21:00</p>
                 </div>
-                <div class="total-row grand-total">
-                    <span>ລວມທັງໝົດ:</span>
-                    <span id="final-total-text">0 ກີບ</span>
+                <div class="about-card">
+                    <div class="about-card-icon"><i class="fa-brands fa-facebook"></i></div>
+                    <h3>Facebook</h3>
+                    <a href="#">PG Board Game Shop</a>
+                    <p>ຕິດຕາມພວກເຮົາ!</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <a href="#">+856 20 9988 7766</a>
+                    <p>ສົ່ງຂໍ້ຄວາມຫາເຮົາ</p>
                 </div>
             </div>
+        </section>
 
-            <button class="btn-confirm" onclick="confirmPurchase()">
-                <i class="fa-solid fa-check-circle"></i> ຢືນຢັນສັ່ງຊື້ & ອອກບິນ
-            </button>
-            <button class="btn-clear" onclick="resetCart()">ລ້າງກະຕ່າ</button>
-        </div>
-    </div>
+    </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fa-solid fa-address-book"></i> ຕິດຕໍ່ພວກເຮົາ</h3>
-                <p><i class="fa-solid fa-location-dot"></i> ທີ່ຢູ່: ບ້ານດົງໂດກ, ເມືອງໄຊທານີ, ນະຄອນຫຼວງວຽງຈັນ</p>
-                <p><i class="fa-solid fa-phone"></i> ໂທ: 020 9988 7766</p>
-            </div>
-            <div class="footer-section">
-                <h3><i class="fa-solid fa-hashtag"></i> ຕິດຕາມພວກເຮົາ</h3>
-                <a href="#"><i class="fa-brands fa-facebook"></i> PG Board Game Shop</a>
-                <a href="#"><i class="fa-brands fa-line"></i> @pgboardgame</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 PG Board Game. All rights reserved.</p>
-        </div>
+        <p>&copy; 2024 PG Board Game. All rights reserved.</p>
     </footer>
+
+    <nav class="mobile-tabs">
+        <a href="#" class="tab-item tab-active" data-view="view-store" onclick="event.preventDefault(); switchView('view-store')">
+            <i class="fa-solid fa-store"></i>
+            <span>ໜ້າຮ້ານ</span>
+        </a>
+        <a href="#" class="tab-item" data-view="view-cart" onclick="event.preventDefault(); switchView('view-cart')">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span>ກະຕ່າ</span>
+            <span class="tab-badge" id="cart-count-mobile">0</span>
+        </a>
+        <a href="#" class="tab-item" data-view="view-about" onclick="event.preventDefault(); switchView('view-about')">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>ກ່ຽວກັບ</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>

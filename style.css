@@ -4,86 +4,138 @@
     --wood: #3e2723;
     --gold: #b8860b;
     --crimson: #8b0000;
+    --paper-light: #fdf5e6;
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Noto Sans Lao', serif;
+    font-family: 'Noto Sans Lao', sans-serif;
 }
 
 body {
     background: var(--ink);
     color: var(--ink);
-    padding: 20px;
+    padding-bottom: 70px; /* Space for mobile tabs */
 }
 
+/* ================================
+   HEADER (SPA Navigation)
+================================ */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1280px;
-    margin: 0 auto 30px;
     background: var(--paper);
-    padding: 20px 30px;
-    border-radius: 4px;
-    border: 4px double var(--wood);
+    padding: 15px 30px;
+    border-bottom: 4px solid var(--wood);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-header h1 {
-    color: var(--wood);
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.cart-status {
-    font-size: 28px;
-    color: var(--crimson);
-    position: relative;
-}
-
-#cart-count {
-    position: absolute;
-    top: -10px;
-    right: -15px;
-    background: var(--crimson);
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 50%;
-    font-size: 14px;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 24px;
-    max-width: 1280px;
-    margin: 0 auto;
-    align-items: start;
-    min-height: calc(100vh - 250px);
-}
-
-.main-content {
+.logo {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 10px;
+    color: var(--wood);
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
 
+.logo:hover {
+    opacity: 0.8;
+}
+
+.logo i {
+    color: var(--crimson);
+    font-size: 1.8rem;
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--wood);
+    font-weight: bold;
+    position: relative;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover, 
+.nav-link.nav-active {
+    background: var(--wood);
+    color: var(--paper);
+}
+
+.cart-badge {
+    background: var(--crimson);
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    font-weight: bold;
+}
+
+/* ================================
+   SPA VIEWS CONFIGURATION
+================================ */
+#app {
+    max-width: 1280px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+.view-title {
+    color: var(--paper);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--paper);
+    padding-bottom: 10px;
+}
+
+/* ================================
+   VIEW: STORE
+================================ */
 .search-bar {
     display: flex;
     align-items: center;
     background: var(--paper);
     padding: 15px 20px;
-    border-radius: 4px;
+    border-radius: var(--radius);
     border: 1px solid var(--wood);
-    gap: 15px;
+    margin-bottom: 25px;
 }
 
 .search-bar i {
     color: var(--wood);
     font-size: 1.2rem;
+    margin-right: 15px;
 }
 
 .search-bar input {
@@ -98,7 +150,7 @@ header h1 {
 .products {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 20px;
 }
 
 .empty-products {
@@ -112,24 +164,20 @@ header h1 {
 .card {
     background: var(--paper);
     padding: 15px;
-    border-radius: 4px;
+    border-radius: var(--radius);
     border: 1px solid var(--wood);
     text-align: center;
-    transition: transform 0.2s;
-    overflow: hidden;
+    position: relative;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-}
-
+/* Original Card Blur Effect */
 .card-image {
     position: relative;
     width: 100%;
     height: 180px;
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid var(--wood);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     overflow: hidden;
     background: var(--ink);
 }
@@ -163,8 +211,22 @@ header h1 {
     padding: 8px;
 }
 
+.card-qty-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--crimson);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: var(--shadow);
+}
+
 .card h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
     color: var(--wood);
 }
@@ -172,109 +234,87 @@ header h1 {
 .price-tag {
     color: var(--crimson);
     font-weight: bold;
-    margin-bottom: 12px;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
 }
 
 .btn-add {
     background: var(--wood);
-    color: #fff;
+    color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 12px;
     width: 100%;
-    border-radius: 4px;
+    border-radius: var(--radius);
     cursor: pointer;
     font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s;
 }
 
 .btn-add:hover {
     background: var(--gold);
 }
 
-.checkout-panel {
-    background: var(--paper);
-    padding: 25px;
-    border-radius: 4px;
-    border: 1px solid var(--wood);
+/* ================================
+   VIEW: CART
+================================ */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 25px;
 }
 
-.checkout-panel h2 {
-    margin-bottom: 20px;
-    font-size: 1.4rem;
+.panel {
+    background: var(--paper);
+    padding: 25px;
+    border-radius: var(--radius);
+    border: 1px solid var(--wood);
+    box-shadow: var(--shadow);
+}
+
+.panel h3 {
     color: var(--wood);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
     border-bottom: 2px solid var(--wood);
     padding-bottom: 10px;
 }
 
-.checkout-panel input,
-.checkout-panel textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid var(--wood);
-    border-radius: 4px;
-    background: #fff;
-    color: var(--ink);
-    font-size: 100%;
-}
-
-.checkout-panel textarea {
-    height: 80px;
-    resize: none;
-}
-
-.coupon-area {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 5px;
-}
-
-.coupon-area input {
-    margin-bottom: 0;
-}
-
-.coupon-area button {
-    background: var(--gold);
-    color: white;
-    border: none;
-    padding: 0 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#coupon-msg {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
 .summary-box {
-    background: #fff;
+    background: white;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid var(--wood);
     margin-bottom: 20px;
 }
 
 #cart-display-list {
-    max-height: 250px;
+    max-height: 350px;
     overflow-y: auto;
-    margin-bottom: 10px;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #999;
+    padding: 30px 0;
 }
 
 .cart-item-row {
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    padding: 15px 0;
     border-bottom: 1px dotted #ccc;
-    gap: 8px;
+    gap: 10px;
+}
+
+.cart-item-row:last-child {
+    border-bottom: none;
 }
 
 .cart-item-info {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
-    color: var(--ink);
 }
 
 .cart-item-price {
@@ -284,33 +324,30 @@ header h1 {
 .cart-item-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
     justify-content: flex-end;
+    gap: 10px;
 }
 
 .btn-qty {
-    background: var(--paper);
+    background: var(--paper-light);
     border: 1px solid var(--wood);
     color: var(--wood);
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .btn-qty:hover {
     background: var(--wood);
-    color: #fff;
+    color: white;
 }
 
 .qty-text {
-    font-size: 0.95rem;
-    min-width: 20px;
+    width: 30px;
     text-align: center;
+    font-weight: bold;
 }
 
 .btn-remove {
@@ -318,184 +355,320 @@ header h1 {
     border: none;
     color: var(--crimson);
     cursor: pointer;
-    margin-left: 5px;
-    font-size: 1.1rem;
+    margin-left: 10px;
+    font-size: 1.2rem;
 }
 
-.btn-remove:hover {
-    color: #ff0000;
+.coupon-area {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 10px;
+}
+
+.coupon-area input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--wood);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.coupon-area button {
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#coupon-msg {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .total-row {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-    font-size: 1rem;
+    margin-top: 15px;
+    font-size: 1.1rem;
 }
 
 .grand-total {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: var(--crimson);
-    margin-top: 5px;
+    margin-top: 10px;
+}
+
+.btn-clear {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: none;
+    border: 1px dashed var(--wood);
+    cursor: pointer;
+    color: var(--wood);
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* ================================
+   VIEW: CART (CHECKOUT FORM)
+================================ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--wood);
+    margin-bottom: 8px;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--wood);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
 }
 
 .btn-confirm {
     background: var(--crimson);
     color: white;
     border: none;
-    padding: 12px;
+    padding: 15px;
     width: 100%;
+    font-size: 1.2rem;
     border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: bold;
     cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
 }
 
 .btn-confirm:hover {
-    background: #b22222;
+    background: #a00000;
 }
 
-.btn-clear {
-    display: block;
+/* ================================
+   VIEW: ABOUT
+================================ */
+.about-hero {
     text-align: center;
-    margin-top: 12px;
-    color: var(--wood);
-    cursor: pointer;
-    text-decoration: underline;
-    background: none;
-    border: none;
-    width: 100%;
+    color: var(--paper);
+    margin-bottom: 40px;
 }
 
-footer {
+.about-hero i {
+    font-size: 4rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+}
+
+.about-hero h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.about-card {
     background: var(--paper);
-    color: var(--ink);
-    max-width: 1280px;
-    margin: 40px auto 0;
-    border-radius: 4px;
-    border: 4px double var(--wood);
     padding: 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    border: 1px solid var(--wood);
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-.footer-section {
-    flex: 1;
-    min-width: 250px;
-}
-
-.footer-section h3 {
+.about-card-icon {
+    font-size: 2.5rem;
     color: var(--wood);
     margin-bottom: 15px;
-    border-bottom: 2px solid var(--wood);
-    padding-bottom: 5px;
-    display: inline-block;
 }
 
-.footer-section p {
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-.footer-section p i {
-    width: 20px;
-    color: var(--crimson);
-}
-
-.footer-section a {
-    display: block;
-    color: var(--ink);
-    text-decoration: none;
-    margin-bottom: 10px;
-    transition: color 0.2s;
-}
-
-.footer-section a:hover {
-    color: var(--crimson);
-}
-
-.footer-section a i {
-    width: 20px;
-    font-size: 1.1rem;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px dotted var(--wood);
-    font-size: 0.9rem;
+.about-card h3 {
     color: var(--wood);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
 }
 
+.about-card a {
+    color: var(--crimson);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+    text-align: center;
+    color: var(--paper);
+    padding: 30px;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* ================================
+   MOBILE TAB BAR (SPA ONLY)
+================================ */
+.mobile-tabs {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--paper);
+    border-top: 3px solid var(--wood);
+    padding: 10px 0;
+    justify-content: space-around;
+    z-index: 200;
+}
+
+.tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--wood);
+    text-decoration: none;
+    font-size: 0.9rem;
+    position: relative;
+    gap: 5px;
+}
+
+.tab-item i {
+    font-size: 1.4rem;
+}
+
+.tab-item.tab-active {
+    color: var(--crimson);
+    font-weight: bold;
+}
+
+.tab-badge {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    background: var(--crimson);
+    color: white;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* ================================
+   RECEIPT PAGE
+================================ */
 .receipt-page {
     display: flex;
     justify-content: center;
     min-height: 100vh;
     padding: 40px 20px;
+    align-items: flex-start;
 }
 
 .bill-container {
-    background: #fdf5e6;
+    background: var(--paper-light);
     width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 600px;
     padding: 40px;
-    border: 1px solid #d2b48c;
+    border-radius: var(--radius);
+    border: 2px solid var(--wood);
 }
 
 .receipt-header {
     text-align: center;
-    border-bottom: 2px double #333;
-    padding-bottom: 15px;
+    border-bottom: 3px double #333;
+    padding-bottom: 20px;
     margin-bottom: 20px;
 }
 
 .receipt-header h2 {
-    letter-spacing: 3px;
+    margin: 15px 0;
+    letter-spacing: 2px;
 }
 
 .receipt-info p {
-    margin-bottom: 5px;
-    line-height: 1.6;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
 }
 
 .receipt-item {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px dotted #ccc;
+    font-size: 1.1rem;
 }
 
 .receipt-total {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--crimson);
-    border-top: 2px double #333;
-    margin-top: 15px;
-    padding-top: 12px;
+    border-top: 3px double #333;
+    margin-top: 20px;
+    padding-top: 20px;
     text-align: right;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: var(--crimson);
 }
 
 .receipt-actions {
-    margin-top: 25px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    margin-top: 30px;
 }
 
-@media (max-width: 850px) {
-    .container {
+/* ================================
+   RESPONSIVE LAYOUTS
+================================ */
+@media (max-width: 992px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cart-layout {
         grid-template-columns: 1fr;
     }
+}
 
-    .footer-content {
-        flex-direction: column;
+@media (max-width: 768px) {
+    header {
+        padding: 15px;
+    }
+
+    .logo span {
+        font-size: 1.1rem;
+    }
+
+    .header-nav {
+        display: none;
+    }
+
+    .mobile-tabs {
+        display: flex;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -510,7 +683,8 @@ footer {
     }
 
     .bill-container {
-        border: none;
         padding: 0;
+        border: none;
+        max-width: 100%;
     }
 }

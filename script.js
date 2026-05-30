@@ -1,4 +1,3 @@
-// ຖານຂໍ້ມູນສິນຄ້າທັງໝົດ 10 ລາຍການ ທີ່ມີຢູ່ໃນຮ້ານບອດເກມ
 const productsData = [
     { id: 1, name: "Coup", price: 120000, img:"coup.jpg" },
     { id: 2, name: "Avalon", price: 130000, img: "avalon.jpg" },
@@ -12,106 +11,110 @@ const productsData = [
     { id: 10, name: "Bang the Dice", price: 200000, img: "bang-the-dice-game.jpg" }
 ];
 
-// basket: ອາເຣ (Array) ໄວ້ເກັບລາຍການສິນຄ້າທີ່ລູກຄ້າກົດເລືອກລົງກະຕ່າ
 let basket = [];
-
-// discountPercent: ເກັບເປີເຊັນສ່ວນຫຼຸດ (ຕົວຢ່າງ: 0.05 ໝາຍເຖິງສ່ວນຫຼຸດ 5%)
 let discountPercent = 0;
 
-// ດຶງ Element ທີ່ເປັນບ່ອນສະແດງລາຍການສິນຄ້າໜ້າຮ້ານມາເກັບໄວ້ໃນຕົວປ່ຽນ productList
 const productList = document.getElementById('product-list');
 
-// ວົນລູບ (Loop) ເພື່ອນຳຂໍ້ມູນສິນຄ້າຈາກ productsData ມາສ້າງເປັນກ່ອງ HTML (Card) ສະແດງໜ້າຮ້ານ
-productsData.forEach(p => {
-    productList.innerHTML += `
-        <div class="card">
-             <div class="card-image" style="--game-img: url('image/${p.img}')">
-                <img src="image/${p.img}" alt="${p.name}">
+function renderProducts(dataToRender) {
+    productList.innerHTML = '';
+    if (dataToRender.length === 0) {
+        productList.innerHTML = '<p class="empty-products">ບໍ່ພົບສິນຄ້າທີ່ຄົ້ນຫາ</p>';
+        return;
+    }
+    dataToRender.forEach(p => {
+        productList.innerHTML += `
+            <div class="card">
+                 <div class="card-image" style="--game-img: url('image/${p.img}')">
+                    <img src="image/${p.img}" alt="${p.name}">
+                </div>
+                <h3>${p.name}</h3>
+                <p class="price-tag">${p.price.toLocaleString()} ກີບ</p>
+                <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">ເພີ່ມລົງກະຕ່າ</button>
             </div>
-            <h3>${p.name}</h3>
-            <p class="price-tag">${p.price.toLocaleString()} ກີບ</p>
-            <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">ເພີ່ມລົງກະຕ່າ</button>
-        </div>
-    `;
-});
+        `;
+    });
+}
 
-/**
- * ຟັງກ໌ຊັນ addToCart: ເພີ່ມສິນຄ້າລົງໃນກະຕ່າ
- * @param {string} pName - ຊື່ຂອງສິນຄ້າ
- * @param {number} pPrice - ລາຄາຂອງສິນຄ້າ
- */
+function filterProducts() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const filtered = productsData.filter(p => p.name.toLowerCase().includes(query));
+    renderProducts(filtered);
+}
+
 function addToCart(pName, pPrice) {
-    // ເພີ່ມວັດຖຸສິນຄ້າໃໝ່ (ຊື່ ແລະ ລາຄາ) ເຂົ້າໄປໃນອາເຣ basket
-    basket.push({ name: pName, price: pPrice });
-    // ເອີ້ນໃຊ້ຟັງກ໌ຊັນ renderUI() ເພື່ອສະແດງຜົນການປ່ຽນແປງເທິງໜ້າຈໍທັນທີ
+    const existingItem = basket.find(item => item.name === pName);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        basket.push({ name: pName, price: pPrice, quantity: 1 });
+    }
     renderUI();
 }
 
-/**
- * ຟັງກ໌ຊັນ removeItem: ລຶບສິນຄ້າອອກຈາກກະຕ່າຕາມຕຳແໜ່ງທີ່ກຳນົດ
- * @param {number} index - ຕຳແໜ່ງ (Index) ຂອງສິນຄ້າໃນອາເຣ basket ທີ່ຕ້ອງການລຶບ
- */
+function adjustQuantity(index, amount) {
+    basket[index].quantity += amount;
+    if (basket[index].quantity <= 0) {
+        basket.splice(index, 1);
+    }
+    renderUI();
+}
+
 function removeItem(index) {
-    // ລຶບຂໍ້ມູນໃນອາເຣ basket ອອກ 1 ລາຍການ ຕາມຕຳແໜ່ງ index ທີ່ສົ່ງມາ
     basket.splice(index, 1);
-    // ເອີ້ນໃຊ້ຟັງກ໌ຊັນ renderUI() ເພື່ອອັບເດດໜ້າຈໍ
     renderUI();
 }
 
-/**
- * ຟັງກ໌ຊັນ applyCoupon: ກວດສອບ ແລະ ນຳໃຊ້ລະຫັດສ່ວນຫຼຸດ
- */
 function applyCoupon() {
-    // ດຶງຄ່າລະຫັດສ່ວນຫຼຸດ, ຕັດຍະຫວ່າງ (trim) ແລະ ປ່ຽນເປັນຕົວພິມໃຫຍ່ທັງໝົດ (toUpperCase)
     const code = document.getElementById('coupon-input').value.trim().toUpperCase();
     const msg = document.getElementById('coupon-msg');
     
-    // ກວດສອບລະຫັດສ່ວນຫຼຸດ ຖ້າແມ່ນ "LAO2024" ຈະໄດ້ສ່ວນຫຼຸດ 5%
     if (code === "LAO2024") {
-        discountPercent = 0.05; // ສ່ວນຫຼຸດ 5%
+        discountPercent = 0.05;
         msg.innerText = "✅ ໃຊ້ສ່ວນຫຼຸດ 5% ສຳເລັດ!";
-        msg.style.color = "#10b981"; // ປ່ຽນຂໍ້ຄວາມເປັນສີຂຽວ
+        msg.style.color = "#10b981";
     } else {
-        discountPercent = 0; // ບໍ່ມີສ່ວນຫຼຸດ
+        discountPercent = 0;
         msg.innerText = "❌ ໂຄ້ດບໍ່ຖືກຕ້ອງ";
-        msg.style.color = "#ef4444"; // ປ່ຽນຂໍ້ຄວາມເປັນສີແດງ
+        msg.style.color = "#ef4444";
     }
-    // ເອີ້ນໃຊ້ renderUI() ເພື່ອຄິດໄລ່ຍອດເງິນໃໝ່ຫຼັງຫັກສ່ວນຫຼຸດ
     renderUI();
 }
 
-/**
- * ຟັງກ໌ຊັນ renderUI: ຄິດໄລ່ຍອດເງິນ ແລະ ອັບເດດການສະແດງຜົນໃນໜ້າຈໍທັງໝົດ
- */
 function renderUI() {
     let subtotal = 0;
-    // ວົນລູບເພື່ອບວກລວມລາຄາສິນຄ້າທຸກຢ່າງໃນກະຕ່າ
-    basket.forEach(item => subtotal += item.price);
+    let totalItems = 0;
+    basket.forEach(item => {
+        subtotal += (item.price * item.quantity);
+        totalItems += item.quantity;
+    });
 
-    // ຄິດໄລ່ມູນຄ່າສ່ວນຫຼຸດ (ຍອດລວມ * ເປີເຊັນສ່ວນຫຼຸດ)
     let discountAmount = subtotal * discountPercent;
-    // ຄິດໄລ່ຍອດເງິນສຸດທິທີ່ຕ້ອງຈ່າຍ (ຍອດລວມ - ສ່ວນຫຼຸດ)
     let finalTotal = subtotal - discountAmount;
 
-    // ອັບເດດຕົວເລກສະແດງຈຳນວນສິນຄ້າໃນໄອຄອນກະຕ່າ
-    document.getElementById('cart-count').innerText = basket.length;
-    // ສະແດງມູນຄ່າສ່ວນຫຼຸດໃນຮູບແບບເລກມີຈຸດຂັ້ນຫຼັກພັນ (toLocaleString)
+    document.getElementById('cart-count').innerText = totalItems;
     document.getElementById('discount-text').innerText = discountAmount.toLocaleString() + " ກີບ";
-    // ສະແດງຍອດລວມສຸດທິໃນຮູບແບບເລກມີຈຸດຂັ້ນຫຼັກພັນ
     document.getElementById('final-total-text').innerText = finalTotal.toLocaleString() + " ກີບ";
 
     const cartDisplay = document.getElementById('cart-display-list');
-    // ຖ້າບໍ່ມີສິນຄ້າໃນກະຕ່າ ໃຫ້ສະແດງຂໍ້ຄວາມເຕືອນ
+    
     if (basket.length === 0) {
         cartDisplay.innerHTML = '<p class="empty-cart">ຍັງບໍ່ມີສິນຄ້າ...</p>';
     } else {
-        // ຖ້າມີສິນຄ້າ ໃຫ້ວົນລູບສ້າງ HTML ເພື່ອສະແດງແຕ່ລະລາຍການພ້ອມປຸ່ມລຶບ (Trash Icon)
         let html = "";
         basket.forEach((item, index) => {
             html += `
                 <div class="cart-item-row">
-                    <span>${item.name}</span>
-                    <button onclick="removeItem(${index})"><i class="fa-solid fa-trash"></i></button>
+                    <div class="cart-item-info">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">${(item.price * item.quantity).toLocaleString()} กີบ</span>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="btn-qty" onclick="adjustQuantity(${index}, -1)">-</button>
+                        <span class="qty-text">${item.quantity}</span>
+                        <button class="btn-qty" onclick="adjustQuantity(${index}, 1)">+</button>
+                        <button class="btn-remove" onclick="removeItem(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                 </div>
             `;
         });
@@ -119,49 +122,39 @@ function renderUI() {
     }
 }
 
-/**
- * ຟັງກ໌ຊັນ resetCart: ລ້າງຂໍ້ມູນໃນກະຕ່າ ແລະ ຂໍ້ມູນສ່ວນຫຼຸດທັງໝົດ
- */
 function resetCart() {
-    // ຖາມຢືນຢັນຄວາມຕ້ອງການຂອງຜູ້ໃຊ້ກ່ອນລຶບ
     if (confirm("ລ້າງກະຕ່າສິນຄ້າ?")) {
-        basket = []; // ລ້າງອາເຣກະຕ່າໃຫ້ວ່າງ
-        discountPercent = 0; // ຕັ້ງຄ່າສ່ວນຫຼຸດເປັນ 0
-        document.getElementById('coupon-input').value = ""; // ລ້າງຊ່ອງປ້ອນຄູປອງ
-        document.getElementById('coupon-msg').innerText = ""; // ລ້າງຂໍ້ຄວາມແຈ້ງເຕືອນຄູປອງ
-        // ອັບເດດໜ້າຈໍຄືນໃໝ່
+        basket = [];
+        discountPercent = 0;
+        document.getElementById('coupon-input').value = "";
+        document.getElementById('coupon-msg').innerText = "";
         renderUI();
     }
 }
 
-/**
- * ຟັງກ໌ຊັນ confirmPurchase: ກວດສອບຂໍ້ມູນລູກຄ້າ ແລະ ບັນທຶກການສັ່ງຊື້ເພື່ອໄປອອກບິນຮັບເງິນ
- */
 function confirmPurchase() {
-    // ດຶງຂໍ້ມູນທີ່ລູກຄ້າປ້ອນເຂົ້າມາ
     const name = document.getElementById('custName').value;
     const tel = document.getElementById('custTel').value;
     const loc = document.getElementById('custLoc').value;
     const total = document.getElementById('final-total-text').innerText;
 
-    // ກວດສອບວ່າປ້ອນຂໍ້ມູນຄົບຖ້ວນ ແລະ ມີສິນຄ້າໃນກະຕ່າຫຼືບໍ່
     if (!name || !tel || !loc || basket.length === 0) {
         alert("ກະລຸນາປ້ອນຂໍ້ມູນ ແລະ ເລືອກສິນຄ້າ!");
         return;
     }
 
-    // ກຽມໂຄງສ້າງຂໍ້ມູນໃບບິນເພື່ອບັນທຶກ
     const orderData = { 
         name: name, 
         tel: tel, 
         loc: loc, 
         items: basket, 
         total: total, 
-        date: new Date().toLocaleString() // ບັນທຶກວັນທີ ແລະ ເວລາປັດຈຸບັນ
+        date: new Date().toLocaleString()
     };
 
-    // ບັນທຶກຂໍ້ມູນລົງໃນ localStorage ຂອງບຣາວເຊີ (Browser Storage)
     localStorage.setItem('myOrder', JSON.stringify(orderData));
-    // ເປີດໜ້າໃບບິນຮັບເງິນ (receipt.html) ຫຼັງຈາກບັນທຶກສຳເລັດ
     window.location.href = 'receipt.html';
 }
+
+renderProducts(productsData);
+renderUI();

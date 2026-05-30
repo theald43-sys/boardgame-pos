@@ -1,51 +1,35 @@
 <!DOCTYPE html>
 <html lang="lo">
 <head>
-    <!-- ກຳນົດການເຂົ້າລະຫັດຕົວອັກສອນເປັນ UTF-8 ເພື່ອໃຫ້ສະແດງພາສາລາວໄດ້ຢ່າງຖືກຕ້ອງ -->
     <meta charset="UTF-8">
-    <!-- ຕັ້ງຄ່າໃຫ້ເວັບໄຊຮອງຮັບການສະແດງຜົນໃນທຸກຂະໜາດໜ້າຈໍ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ໃບບິນຮັບເງິນ - Dice & Meeples</title>
-    <!-- ນຳເຂົ້າຟອນ Noto Sans Lao ຈາກ Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+Lao:wght@400;700&display-swap" rel="stylesheet">
-    <!-- ເຊື່ອມຕໍ່ໄຟລ໌ CSS ພາຍນອກເພື່ອຕົກແຕ່ງໃບບິນ -->
     <link rel="stylesheet" href="style.css">
-    <!-- ນຳເຂົ້າ Font Awesome ໄອຄອນ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="receipt-page">
-    <!-- ກ່ອງບັນຈຸໃບບິນທັງໝົດ (Bill Container) -->
     <div class="bill-container">
-        <!-- ສ່ວນຫົວໃບບິນ: ສະແດງໄອຄອນຕິກຖືກ ແລະ ຊື່ຮ້ານ -->
         <div class="receipt-header">
             <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #10b981;"></i>
             <h2 style="margin-top: 10px;">ໃບບິນຮັບເງິນ</h2>
-            <p>Dice & Meeples Shop</p>
+            <p>PG Board Game Shop</p>
         </div>
 
-        <!-- ບ່ອນສະແດງຂໍ້ມູນລູກຄ້າ ແລະ ວັນທີສັ່ງຊື້ -->
         <div id="display-info" class="receipt-info"></div>
-        <!-- ບ່ອນສະແດງລາຍການສິນຄ້າທີ່ສັ່ງຊື້ -->
         <div id="display-items"></div>
-        <!-- ບ່ອນສະແດງຍອດເງິນລວມສຸດທິ -->
         <div id="display-total" class="receipt-total"></div>
 
-        <!-- ປຸ່ມຈັດການໃບບິນ (ພິມ ແລະ ກັບໜ້າຫຼັກ) ຈະບໍ່ຖືກສະແດງເວລາສັ່ງພິມ (.no-print) -->
         <div class="no-print receipt-actions">
-            <!-- ປຸ່ມສັ່ງພິມໃບບິນຜ່ານລະບົບຂອງບຣາວເຊີ -->
             <button class="btn-confirm" onclick="window.print()">ພິມໃບບິນ</button>
-            <!-- ປຸ່ມກັບຄືນໄປໜ້າ POS ຫຼັກ -->
             <button class="btn-clear" onclick="location.href='index.html'">ກັບຄືນໜ້າຫຼັກ</button>
         </div>
     </div>
 
     <script>
-        // ດຶງຂໍ້ມູນການສັ່ງຊື້ຫຼ້າສຸດຈາກ localStorage ທີ່ບັນທຶກມາຈາກໜ້າ index.html
         const data = JSON.parse(localStorage.getItem('myOrder'));
 
-        // ກວດສອບວ່າມີຂໍ້ມູນການສັ່ງຊື້ຫຼືບໍ່
         if (data) {
-            // ສະແດງວັນທີ, ຊື່ລູກຄ້າ, ເບີໂທ, ແລະ ທີ່ຢູ່ຈັດສົ່ງ
             document.getElementById('display-info').innerHTML = `
                 <p><b>ວັນທີ:</b> ${data.date}</p>
                 <p><b>ລູກຄ້າ:</b> ${data.name}</p>
@@ -53,20 +37,17 @@
                 <p><b>ທີ່ຢູ່:</b> ${data.loc}</p>
             `;
 
-            // ວົນລູບ (Loop) ເພື່ອດຶງລາຍການສິນຄ້າແຕ່ລະຢ່າງອອກມາສະແດງ
             let itemsHtml = "";
             data.items.forEach(i => {
                 itemsHtml += `
                     <div class="receipt-item">
-                        <span>${i.name}</span>
-                        <span>${i.price.toLocaleString()} ກີບ</span>
+                        <span>${i.name} (x${i.quantity})</span>
+                        <span>${(i.price * i.quantity).toLocaleString()} ກີບ</span>
                     </div>
                 `;
             });
 
-            // ນຳລາຍການສິນຄ້າທີ່ໄດ້ ໄປສະແດງໃນ Element display-items
             document.getElementById('display-items').innerHTML = itemsHtml;
-            // ສະແດງຍອດເງິນລວມທັງໝົດ
             document.getElementById('display-total').innerText = "ລວມທັງໝົດ: " + data.total;
         }
     </script>

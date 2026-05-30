@@ -1,101 +1,139 @@
-/* 1. ຕັ້ງຄ່າພື້ນຖານ (Global Styles & Variables) */
 :root {
-    /* ກຳນົດສີຫຼັກທີ່ໃຊ້ໃນເວັບໄຊ */
-    --paper: #f4e4bc;   /* ສີພື້ນຫຼັງຮູບແບບເຈ້ຍ */
-    --ink: #2c1e14;     /* ສີຕົວໜັງສືຮູບແບບນ້ຳມຶກ */
-    --wood: #3e2723;    /* ສີໄມ້ສຳລັບຂອບ ແລະ ປຸ່ມ */
-    --gold: #b8860b;    /* ສີຄຳສຳລັບຈຸດເດັ່ນ */
-    --crimson: #8b0000; /* ສີແດງເຂັ້ມສຳລັບລາຄາ ແລະ ແຈ້ງເຕືອນ */
+    --paper: #f4e4bc;
+    --ink: #2c1e14;
+    --wood: #3e2723;
+    --gold: #b8860b;
+    --crimson: #8b0000;
 }
-/* ຕັ້ງຄ່າເລີ່ມຕົ້ນໃຫ້ທຸກສ່ວນປະກອບ (Reset CSS) */
-* { 
-    box-sizing: border-box; /* ໃຫ້ padding ແລະ border ລວມໃນຂະໜາດລວມ */
-    margin: 0;              /* ລຶບໄລຍະຫ່າງດ້ານນອກ */
-    padding: 0;             /* ລຶບໄລຍະຫ່າງດ້ານໃນ */
-    font-family: 'Noto Sans Lao', serif; /* ໃຊ້ຟອນ Noto Sans Lao ເປັນຫຼັກ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans Lao', serif;
 }
-/* ຕັ້ງຄ່າພື້ນຫຼັງ ແລະ ສີຕົວໜັງສືຂອງໜ້າເວັບ */
+
 body {
-    background: var(--ink); /* ພື້ນຫຼັງສີເຂັ້ມ */
-    color: var(--ink);      /* ສີຕົວໜັງສື */
-    padding: 20px;          /* ຍະຫວ່າງຂອບໜ້າຈໍ 20px */
+    background: var(--ink);
+    color: var(--ink);
+    padding: 20px;
 }
-/* 2. ສ່ວນຫົວເວັບ (Header & Cart Status) */
+
 header {
-    display: flex;                   /* ຈັດລຽງເປັນແນວນອນ */
-    justify-content: space-between;  /* ຍູ້ໃຫ້ຢູ່ຄົນລະເບື້ອງ (ຊ້າຍ-ຂວາ) */
-    align-items: center;             /* ຈັດໃຫ້ຢູ່ເຄິ່ງກາງແນວຕັ້ງ */
-    max-width: 1280px;               /* ກຳນົດຄວາມກວ້າງສູງສຸດ 1280px */
-    margin: 0 auto 30px;             /* ຈັດໃຫ້ຢູ່ເຄິ່ງກາງໜ້າຈໍ ແລະ ຫ່າງຈາກດ້ານລຸ່ມ 30px */
-    background: var(--paper);        /* ພື້ນຫຼັງສີເຈ້ຍ */
-    padding: 20px 30px;              /* ຍະຫວ່າງດ້ານໃນ (ເທິງ-ລຸ່ມ 20px, ຊ້າຍ-ຂວາ 30px) */
-    border-radius: 4px;              /* ເຮັດໃຫ້ມຸມມົນເລັກນ້ອຍ */
-    border: 4px double var(--wood);  /* ສ້າງຂອບແບບເສັ້ນຄູ່ ສີໄມ້ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto 30px;
+    background: var(--paper);
+    padding: 20px 30px;
+    border-radius: 4px;
+    border: 4px double var(--wood);
 }
-/* ຕັ້ງຄ່າຊື່ຮ້ານໃນສ່ວນຫົວ */
-header h1 { 
-    color: var(--wood);      /* ສີໄມ້ */
-    font-size: 1.8rem;       /* ຂະໜາດຕົວໜັງສື */
-    letter-spacing: 2px;     /* ຍະຫວ່າງລະຫວ່າງຕົວອັກສອນ */
-    text-transform: uppercase; /* ເຮັດໃຫ້ເປັນຕົວພິມໃຫຍ່ທັງໝົດ */
+
+header h1 {
+    color: var(--wood);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
-/* ສ່ວນສະແດງສະຖານະກະຕ່າສິນຄ້າ (ໄອຄອນກະຕ່າ) */
-.cart-status { 
-    font-size: 28px;        /* ຂະໜາດໄອຄອນ */
-    color: var(--crimson);  /* ສີແດງເຂັ້ມ */
-    position: relative;     /* ໃຊ້ສຳລັບອ້າງອີງຕຳແໜ່ງຕົວເລກແຈ້ງເຕືອນ */
+
+.cart-status {
+    font-size: 28px;
+    color: var(--crimson);
+    position: relative;
 }
-/* ຕົວເລກສະແດງຈຳນວນສິນຄ້າໃນກະຕ່າ (ບຸ໋ມແດງໆ) */
+
 #cart-count {
-    position: absolute;      /* ຈັດວາງແບບອິດສະຫຼະ (ອ້າງອີງຈາກ .cart-status) */
-    top: -10px;              /* ຍົກຂຶ້ນເທິງ 10px */
-    right: -15px;            /* ຍັບໄປຂວາ 15px */
-    background: var(--crimson); /* ພື້ນຫຼັງສີແດງ */
-    color: #fff;             /* ຕົວເລກສີຂາວ */
-    padding: 2px 8px;        /* ຍະຫວ່າງດ້ານໃນ */
-    border-radius: 50%;      /* ເຮັດໃຫ້ເປັນວົງມົນ */
-    font-size: 14px;         /* ຂະໜາດຕົວເລກ */
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    background: var(--crimson);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 50%;
+    font-size: 14px;
 }
-/* 3. ໂຄງສ້າງໜ້າຈໍ (Layout Container) */
+
 .container {
-    display: grid;                   /* ໃຊ້ Grid ໃນການຈັດວາງ */
-    grid-template-columns: 1fr 360px; /* ແບ່ງເປັນ 2 ຖັນ: ຖັນຊ້າຍ(ສິນຄ້າ) ຍືດໄດ້, ຖັນຂວາ(ຄິດເງິນ) ກວ້າງ 360px */
-    gap: 24px;                       /* ຍະຫວ່າງລະຫວ່າງຖັນ 24px */
-    max-width: 1280px;               /* ຄວາມກວ້າງສູງສຸດ 1280px */
-    margin: 0 auto;                  /* ຈັດໃຫ້ຢູ່ເຄິ່ງກາງໜ້າຈໍ */
-    align-items: start;              /* ໃຫ້ທັງສອງຖັນເລີ່ມຕົ້ນແຕ່ດ້ານເທິງເທົ່າກັນ */
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+    min-height: calc(100vh - 250px);
 }
-/* 4. ໂຊນສະແດງສິນຄ້າ (Products Grid) */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--paper);
+    padding: 15px 20px;
+    border-radius: 4px;
+    border: 1px solid var(--wood);
+    gap: 15px;
+}
+
+.search-bar i {
+    color: var(--wood);
+    font-size: 1.2rem;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: var(--ink);
+    outline: none;
+}
+
 .products {
-    display: grid;                               /* ໃຊ້ Grid ຈັດວາງສິນຄ້າ */
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* ຈັດລຽງ 3 ກ່ອງຕໍ່ແຖວ */
-    gap: 18px;                                   /* ຍະຫວ່າງລະຫວ່າງສິນຄ້າ 18px */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
 }
-/* ກ່ອງສະແດງສິນຄ້າແຕ່ລະອັນ */
+
+.empty-products {
+    color: var(--paper);
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 40px;
+    font-size: 1.2rem;
+}
+
 .card {
-    background: var(--paper); /* ພື້ນຫຼັງສີເຈ້ຍ */
-    padding: 15px;            /* ຍະຫວ່າງດ້ານໃນ */
-    border-radius: 4px;       /* ມຸມມົນ */
-    border: 1px solid var(--wood); /* ຂອບສີໄມ້ */
-    text-align: center;       /* ຈັດຂໍ້ຄວາມໃຫ້ຢູ່ເຄິ່ງກາງ */
-    transition: transform 0.2s; /* ເພີ່ມອະນິເມຊັນໃຫ້ 부드러운 (smooth) ເວລາຍ້າຍ */
+    background: var(--paper);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid var(--wood);
+    text-align: center;
+    transition: transform 0.2s;
     overflow: hidden;
 }
-/* ເອັບເຟັກເວລາເອົາເມົາສ໌ມາຊີ້ໃສ່ກ່ອງສິນຄ້າ (Hover Effect) */
+
 .card:hover {
-    transform: translateY(-5px); /* ເຮັດໃຫ້ກ່ອງຍົກຂຶ້ນ 5px */
+    transform: translateY(-5px);
 }
-/* ຮູບພາບສິນຄ້າໃນກ່ອງ */
+
 .card-image {
     position: relative;
-    width: 100%;             /* ໃຫ້ຮູບກວ້າງເຕັມກ່ອງ */
-    height: 180px;           /* ລວງສູງຂອງຮູບ 180px */
-    border-radius: 2px;      /* ມຸມມົນໜ້ອຍໜຶ່ງ */
-    border: 1px solid var(--wood); /* ຂອບຮູບ */
-    margin-bottom: 12px;     /* ຍະຫວ່າງດ້ານລຸ່ມຮູບ 12px */
+    width: 100%;
+    height: 180px;
+    border-radius: 2px;
+    border: 1px solid var(--wood);
+    margin-bottom: 12px;
     overflow: hidden;
     background: var(--ink);
 }
+
 .card-image::before {
     content: "";
     position: absolute;
@@ -107,12 +145,14 @@ header h1 {
     opacity: 0.8;
     transform: scale(1.04);
 }
+
 .card-image::after {
     content: "";
     position: absolute;
     inset: 0;
     background: rgba(44, 30, 20, 0.18);
 }
+
 .card-image img {
     position: relative;
     z-index: 1;
@@ -122,237 +162,355 @@ header h1 {
     object-fit: contain;
     padding: 8px;
 }
-/* ຊື່ສິນຄ້າ */
+
 .card h3 {
-    font-size: 1.1rem;       /* ຂະໜາດຕົວໜັງສື */
-    margin-bottom: 8px;      /* ຍະຫວ່າງດ້ານລຸ່ມຊື່ */
-    color: var(--wood);      /* ສີໄມ້ */
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--wood);
 }
-/* ປ້າຍສະແດງລາຄາ */
+
 .price-tag {
-    color: var(--crimson);   /* ສີແດງເຂັ້ມ */
-    font-weight: bold;       /* ຕົວໜາ */
-    margin-bottom: 12px;     /* ຍະຫວ່າງດ້ານລຸ່ມ */
+    color: var(--crimson);
+    font-weight: bold;
+    margin-bottom: 12px;
 }
-/* ປຸ່ມ "ເພີ່ມລົງກະຕ່າ" */
+
 .btn-add {
-    background: var(--wood); /* ສີພື້ນປຸ່ມ (ສີໄມ້) */
-    color: #fff;             /* ສີຕົວໜັງສື (ຂາວ) */
-    border: none;            /* ລຶບຂອບປຸ່ມ */
-    padding: 8px 16px;       /* ຍະຫວ່າງດ້ານໃນປຸ່ມ */
-    width: 100%;             /* ປຸ່ມກວ້າງເຕັມກ່ອງ */
-    border-radius: 4px;      /* ມຸມມົນ */
-    cursor: pointer;         /* ປ່ຽນເມົາສ໌ເປັນຮູບມືເວລາກົດ */
-    font-weight: bold;       /* ຕົວໜາ */
+    background: var(--wood);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
 }
-/* ເອັບເຟັກເວລາເອົາເມົາສ໌ຊີ້ໃສ່ປຸ່ມ "ເພີ່ມລົງກະຕ່າ" */
+
 .btn-add:hover {
-    background: var(--gold); /* ປ່ຽນເປັນສີຄຳ */
+    background: var(--gold);
 }
-/* 5. ໂຊນຟອມຄິດເງິນ (Checkout Panel) */
+
 .checkout-panel {
-    background: var(--paper); /* ພື້ນຫຼັງສີເຈ້ຍ */
-    padding: 25px;            /* ຍະຫວ່າງດ້ານໃນ 25px */
-    border-radius: 4px;       /* ມຸມມົນ */
-    border: 1px solid var(--wood); /* ຂອບສີໄມ້ */
+    background: var(--paper);
+    padding: 25px;
+    border-radius: 4px;
+    border: 1px solid var(--wood);
 }
-/* ຫົວຂໍ້ໃນໂຊນຄິດເງິນ (ເຊັ່ນ: "ຂໍ້ມູນການຈັດສົ່ງ") */
+
 .checkout-panel h2 {
-    margin-bottom: 20px;      /* ຍະຫວ່າງດ້ານລຸ່ມ 20px */
-    font-size: 1.4rem;        /* ຂະໜາດຕົວໜັງສື */
-    color: var(--wood);       /* ສີໄມ້ */
-    border-bottom: 2px solid var(--wood); /* ຂີດກ້ອງ 2px */
-    padding-bottom: 10px;     /* ຍະຫວ່າງລະຫວ່າງຕົວໜັງສື ແລະ ຂີດກ້ອງ */
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    color: var(--wood);
+    border-bottom: 2px solid var(--wood);
+    padding-bottom: 10px;
 }
-/* ຊ່ອງປ້ອນຂໍ້ມູນ (Input) ແລະ ຊ່ອງພິມຂໍ້ຄວາມ (Textarea) */
-.checkout-panel input, 
+
+.checkout-panel input,
 .checkout-panel textarea {
-    width: 100%;              /* ກວ້າງເຕັມທີ່ */
-    padding: 10px;            /* ຍະຫວ່າງດ້ານໃນ */
-    margin-bottom: 15px;      /* ຍະຫວ່າງລະຫວ່າງຊ່ອງປ້ອນຂໍ້ມູນ */
-    border: 1px solid var(--wood); /* ຂອບສີໄມ້ */
-    border-radius: 4px;       /* ມຸມມົນ */
-    background: #fff;         /* ພື້ນຫຼັງສີຂາວ */
-    color: var(--ink);        /* ສີຕົວໜັງສື */
-    font-size: 100%;          /* ຂະໜາດຕົວໜັງສືເທົ່າກັບຄ່າເລີ່ມຕົ້ນ */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--wood);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 100%;
 }
-/* ຕັ້ງຄ່າສະເພາະຊ່ອງພິມຂໍ້ຄວາມ (ເຊັ່ນ: ທີ່ຢູ່) */
+
 .checkout-panel textarea {
-    height: 80px;             /* ລວງສູງ 80px */
-    resize: none;             /* ປິດບໍ່ໃຫ້ຜູ້ໃຊ້ຍືດ/ຫົດຊ່ອງພິມໄດ້ */
+    height: 80px;
+    resize: none;
 }
-/* 6. ລະບົບຄູປອງ & ຍອດລວມ (Coupon & Summary) */
-/* ພື້ນທີ່ໃສ່ລະຫັດຄູປອງ */
+
 .coupon-area {
-    display: flex;            /* ຈັດລຽງເປັນແນວນອນ */
-    gap: 10px;                /* ຍະຫວ່າງລະຫວ່າງຊ່ອງໃສ່ລະຫັດ ແລະ ປຸ່ມ */
-    margin-bottom: 5px;       /* ຍະຫວ່າງດ້ານລຸ່ມ 5px */
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
 }
+
 .coupon-area input {
-    margin-bottom: 0;         /* ຍົກເລີກ margin-bottom ທີ່ຕັ້ງໄວ້ກ່ອນໜ້າ */
+    margin-bottom: 0;
 }
-/* ປຸ່ມນຳໃຊ້ຄູປອງ */
+
 .coupon-area button {
-    background: var(--gold);  /* ສີພື້ນ (ສີຄຳ) */
-    color: white;             /* ສີຕົວໜັງສື (ຂາວ) */
-    border: none;             /* ລຶບຂອບ */
-    padding: 0 15px;          /* ຍະຫວ່າງດ້ານໃນ ຊ້າຍ-ຂວາ 15px */
-    border-radius: 4px;       /* ມຸມມົນ */
-    cursor: pointer;          /* ປ່ຽນເມົາສ໌ເປັນຮູບມືເວລາກົດ */
-    font-weight: bold;        /* ຕົວໜາ */
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
 }
-/* ຂໍ້ຄວາມແຈ້ງເຕືອນຄູປອງ (ເຊັ່ນ: "ໃຊ້ຄູປອງສຳເລັດ") */
+
 #coupon-msg {
-    font-size: 0.9rem;        /* ຂະໜາດນ້ອຍລົງເລັກນ້ອຍ */
-    margin-bottom: 15px;      /* ຍະຫວ່າງດ້ານລຸ່ມ */
-    font-weight: bold;        /* ຕົວໜາ */
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
-/* ກ່ອງສະຫຼຸບຍອດລວມ (ສິນຄ້າ ແລະ ລາຄາ) */
+
 .summary-box {
-    background: #fff;         /* ພື້ນຫຼັງສີຂາວ */
-    padding: 15px;            /* ຍະຫວ່າງດ້ານໃນ */
-    border-radius: 4px;       /* ມຸມມົນ */
-    border: 1px solid var(--wood); /* ຂອບສີໄມ້ */
-    margin-bottom: 20px;      /* ຍະຫວ່າງດ້ານລຸ່ມ */
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid var(--wood);
+    margin-bottom: 20px;
 }
-/* ລາຍການສິນຄ້າໃນກະຕ່າ */
+
 #cart-display-list {
-    max-height: 150px;        /* ຄວາມສູງສູງສຸດ 150px */
-    overflow-y: auto;         /* ຖ້າລາຍການຫຼາຍໃຫ້ເລື່ອນ (Scroll) ໄດ້ */
-    margin-bottom: 10px;      /* ຍະຫວ່າງດ້ານລຸ່ມ */
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 10px;
 }
-/* ແຖວຂອງແຕ່ລະລາຍການສິນຄ້າໃນກະຕ່າ */
+
 .cart-item-row {
-    display: flex;                   /* ຈັດລຽງແນວນອນ */
-    justify-content: space-between;  /* ແຍກຊື່ສິນຄ້າ ແລະ ລາຄາໄປຄົນລະເບື້ອງ */
-    align-items: center;             /* ຈັດເຄິ່ງກາງແນວຕັ້ງ */
-    padding: 6px 0;                  /* ຍະຫວ່າງ ເທິງ-ລຸ່ມ 6px */
-    border-bottom: 1px dotted #ccc;  /* ເສັ້ນຂັ້ນດ້ານລຸ່ມແບບຈ້ຳໆ */
-    font-size: 0.95rem;              /* ຂະໜາດຕົວໜັງສື */
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-bottom: 1px dotted #ccc;
+    gap: 8px;
 }
-/* ປຸ່ມລຶບສິນຄ້າອອກຈາກກະຕ່າ (ປຸ່ມ X) */
-.cart-item-row button {
-    background: none;         /* ບໍ່ມີສີພື້ນ */
-    border: none;             /* ບໍ່ມີຂອບ */
-    color: var(--crimson);    /* ສີແດງ */
-    cursor: pointer;          /* ປ່ຽນເມົາສ໌ເປັນຮູບມື */
+
+.cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--ink);
 }
-/* ແຖວສະແດງຍອດລວມ (ກ່ອນຫັກສ່ວນຫຼຸດ, ຄ່າສົ່ງ ຯລຯ) */
+
+.cart-item-price {
+    color: var(--crimson);
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-qty {
+    background: var(--paper);
+    border: 1px solid var(--wood);
+    color: var(--wood);
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-qty:hover {
+    background: var(--wood);
+    color: #fff;
+}
+
+.qty-text {
+    font-size: 0.95rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: var(--crimson);
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 1.1rem;
+}
+
+.btn-remove:hover {
+    color: #ff0000;
+}
+
 .total-row {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;         /* ຍະຫວ່າງດ້ານເທິງ */
+    margin-top: 10px;
     font-size: 1rem;
 }
-/* ຍອດລວມສຳສຸດທິ (ຈຳນວນເງິນທີ່ຕ້ອງຈ່າຍແທ້) */
+
 .grand-total {
-    font-weight: bold;        /* ຕົວໜາ */
-    font-size: 1.2rem;        /* ຂະໜາດໃຫຍ່ກວ່າປົກກະຕິ */
-    color: var(--crimson);    /* ສີແດງເຂັ້ມ */
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--crimson);
     margin-top: 5px;
 }
-/* ປຸ່ມຍືນຍັນການສັ່ງຊື້ */
+
 .btn-confirm {
-    background: var(--crimson); /* ສີແດງເຂັ້ມ */
-    color: white;               /* ສີຕົວໜັງສື */
-    border: none;               /* ບໍ່ມີຂອບ */
-    padding: 12px;              /* ຍະຫວ່າງດ້ານໃນ */
-    width: 100%;                /* ກວ້າງເຕັມ */
-    border-radius: 4px;         /* ມຸມມົນ */
-    font-size: 1.1rem;          /* ຂະໜາດຕົວໜັງສື */
-    font-weight: bold;          /* ຕົວໜາ */
-    cursor: pointer;            /* ປ່ຽນເມົາສ໌ເປັນຮູບມື */
+    background: var(--crimson);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
 }
-/* ເອັບເຟັກເວລາເອົາເມົາສ໌ຊີ້ປຸ່ມຍືນຍັນ */
+
 .btn-confirm:hover {
-    background: #b22222;        /* ປ່ຽນສີແດງໃຫ້ເຂັ້ມຂຶ້ນ */
+    background: #b22222;
 }
-/* ປຸ່ມລ້າງກະຕ່າສິນຄ້າ */
+
 .btn-clear {
-    display: block;             /* ຈັດເປັນ block (ເລີ່ມແຖວໃໝ່) */
-    text-align: center;         /* ຈັດເຄິ່ງກາງ */
-    margin-top: 12px;           /* ຍະຫວ່າງດ້ານເທິງ */
-    color: var(--wood);         /* ສີໄມ້ */
-    cursor: pointer;            /* ປ່ຽນເມົາສ໌ເປັນຮູບມື */
-    text-decoration: underline; /* ມີຂີດກ້ອງ */
-    background: none;           /* ບໍ່ມີພື້ນຫຼັງ */
-    border: none;               /* ບໍ່ມີຂອບ */
-    width: 100%;                /* ກວ້າງເຕັມ */
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    color: var(--wood);
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    width: 100%;
 }
-/* 7. ໜ້າສະແດງໃບບິນ (Receipt Page) */
-/* ຈັດວາງໜ້າໃບບິນໃຫ້ຢູ່ເຄິ່ງກາງໜ້າຈໍ */
+
+footer {
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 1280px;
+    margin: 40px auto 0;
+    border-radius: 4px;
+    border: 4px double var(--wood);
+    padding: 30px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    color: var(--wood);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--wood);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.footer-section p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.footer-section p i {
+    width: 20px;
+    color: var(--crimson);
+}
+
+.footer-section a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: var(--crimson);
+}
+
+.footer-section a i {
+    width: 20px;
+    font-size: 1.1rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px dotted var(--wood);
+    font-size: 0.9rem;
+    color: var(--wood);
+}
+
 .receipt-page {
     display: flex;
     justify-content: center;
-    min-height: 100vh;          /* ສູງຢ່າງໜ້ອຍເຕັມໜ້າຈໍ */
-    padding: 40px 20px;         /* ຍະຫວ່າງດ້ານໃນ */
+    min-height: 100vh;
+    padding: 40px 20px;
 }
-/* ກ່ອງໃບບິນ (ຄ້າຍຄືເຈ້ຍໃບບິນ) */
+
 .bill-container {
-    background: #fdf5e6;        /* ສີເຈ້ຍໃບບິນເກົ່າໆ */
+    background: #fdf5e6;
     width: 100%;
-    max-width: 700px;           /* ຄວາມກວ້າງສູງສຸດ 700px */
-    margin: 0 auto;             /* ຈັດເຄິ່ງກາງ */
-    padding: 40px;              /* ຍະຫວ່າງດ້ານໃນ 40px */
-    border: 1px solid #d2b48c;  /* ຂອບສີນ້ຳຕານອ່ອນ */
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid #d2b48c;
 }
-/* ສ່ວນຫົວຂອງໃບບິນ */
+
 .receipt-header {
-    text-align: center;             /* ຈັດເຄິ່ງກາງ */
-    border-bottom: 2px double #333; /* ເສັ້ນຂັ້ນຄູ່ສີດຳ */
-    padding-bottom: 15px;           /* ຍະຫວ່າງດ້ານລຸ່ມ */
-    margin-bottom: 20px;            /* ຍະຫວ່າງດ້ານລຸ່ມຂອງກ່ອງ */
+    text-align: center;
+    border-bottom: 2px double #333;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
-/* ຕົວໜັງສືຫົວຂໍ້ໃບບິນ */
+
 .receipt-header h2 {
-    letter-spacing: 3px;            /* ຍະຫວ່າງລະຫວ່າງຕົວອັກສອນ 3px */
+    letter-spacing: 3px;
 }
-/* ຂໍ້ມູນໃນໃບບິນ (ເຊັ່ນ: ຊື່, ທີ່ຢູ່, ເບີໂທ) */
+
 .receipt-info p {
-    margin-bottom: 5px;             /* ຍະຫວ່າງແຕ່ລະແຖວ 5px */
-    line-height: 1.6;               /* ຄວາມສູງຂອງແຖວ ເພື່ອໃຫ້ອ່ານງ່າຍ */
+    margin-bottom: 5px;
+    line-height: 1.6;
 }
-/* ແຖວລາຍການສິນຄ້າໃນໃບບິນ */
+
 .receipt-item {
-    display: flex;                  /* ຈັດລຽງແນວນອນ */
-    justify-content: space-between; /* ແຍກຊື່ສິນຄ້າ ແລະ ລາຄາ */
-    padding: 10px 0;                /* ຍະຫວ່າງເທິງ-ລຸ່ມ 10px */
-    border-bottom: 1px dotted #999; /* ເສັ້ນຂັ້ນແບບຈ້ຳໆ */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dotted #999;
 }
-/* ຍອດລວມທັງໝົດໃນໃບບິນ */
+
 .receipt-total {
-    font-size: 1.3rem;              /* ຕົວໜັງສືໃຫຍ່ */
-    font-weight: bold;              /* ຕົວໜາ */
-    color: var(--crimson);          /* ສີແດງເຂັ້ມ */
-    border-top: 2px double #333;    /* ເສັ້ນຂັ້ນຄູ່ດ້ານເທິງ */
-    margin-top: 15px;               /* ຍະຫວ່າງດ້ານເທິງ */
-    padding-top: 12px;              /* ຍະຫວ່າງດ້ານໃນດ້ານເທິງ */
-    text-align: right;              /* ຈັດຊິດຂວາ */
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--crimson);
+    border-top: 2px double #333;
+    margin-top: 15px;
+    padding-top: 12px;
+    text-align: right;
 }
-/* ປຸ່ມກົດໃນໜ້າໃບບິນ (ເຊັ່ນ: ພິມໃບບິນ, ກັບຄືນ) */
+
 .receipt-actions {
-    margin-top: 25px;               /* ຍະຫວ່າງດ້ານເທິງ 25px */
-    display: flex;                  /* ຈັດລຽງແນວນອນ */
-    gap: 10px;                      /* ຍະຫວ່າງລະຫວ່າງປຸ່ມ 10px */
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
 }
-/* 8. ລະບົບຮອງຮັບມືຖື & ການພິມ (Responsive & Print) */
-/* ສຳລັບໜ້າຈໍຂະໜາດນ້ອຍກວ່າ 850px (ເຊັ່ນ: ໂທລະສັບມືຖື, ແທັບເລັດ) */
+
 @media (max-width: 850px) {
     .container {
-        grid-template-columns: 1fr; /* ປ່ຽນການຈັດວາງຈາກ 2 ຖັນ ເປັນ 1 ຖັນ (ລຽງຕໍ່ກັນລົງມາ) */
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
     }
 }
-/* ຕັ້ງຄ່າສຳລັບເວລາສັ່ງພິມໃບບິນຜ່ານເຄື່ອງພິມ (Printer) */
+
 @media print {
     .no-print {
-        display: none !important; /* ເຊື່ອງປຸ່ມ ຫຼື ສ່ວນທີ່ບໍ່ຕ້ອງການໃຫ້ພິມອອກມາ */
+        display: none !important;
     }
+
     body {
-        background: white;        /* ປ່ຽນສີພື້ນຫຼັງເປັນສີຂາວ */
-        padding: 0;               /* ລຶບຍະຫວ່າງຂອບໜ້າຈໍ */
+        background: white;
+        padding: 0;
     }
+
     .bill-container {
-        border: none;             /* ລຶບຂອບໃບບິນອອກ ເພື່ອໃຫ້ພິມອອກມາງາມຂຶ້ນ */
-        padding: 0;               /* ລຶບຍະຫວ່າງດ້ານໃນ */
+        border: none;
+        padding: 0;
     }
 }
